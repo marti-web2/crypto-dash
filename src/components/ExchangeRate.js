@@ -1,10 +1,10 @@
 import React from 'react'
 
-const ExchangeRate = ({exchangeRate, chosenPrimaryCurrency, chosenSecondaryCurrency}) => (
+const ExchangeRate = ({exchangedData}) => (
   <div className="exchange-rate">
-    <h3>ExchangeRate</h3>
-    <h3>{exchangeRate}</h3>
-    <h3>{chosenPrimaryCurrency} to {chosenSecondaryCurrency}</h3>
+    <h3>Exchange Rate</h3>
+    <h3>{exchangedData.exchangeRate}</h3>
+    <h3>{exchangedData.primaryCurrency} to {exchangedData.secondaryCurrency}</h3>
   </div>
   )
 
