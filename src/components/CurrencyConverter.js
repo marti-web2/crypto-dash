@@ -8,30 +8,32 @@ const CurrencyConverter = () => {
   const [chosenPrimaryCurrency, setChosenPrimaryCurrency] = useState('BTC')
   const [chosenSecondaryCurrency, setChosenSecondaryCurrency] = useState('ETH')
   const [amount, setAmount] = useState(1.0)
+  const [exchangeRate, setExchangeRate] = useState(0)
+  const [result, SetResult] = useState(0)
 
   console.log(chosenSecondaryCurrency)
   console.log(amount)
 
   const convert = () => {
-   
+    const options = {
+      method: 'GET',
+      url: 'https://alpha-vantage.p.rapidapi.com/query',
+      params: {
+        from_currency: chosenPrimaryCurrency, function: 'CURRENCY_EXCHANGE_RATE', to_currency: chosenSecondaryCurrency
+      },
+      headers: {
+        'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+        'X-RapidAPI-Host': 'alpha-vantage.p.rapidapi.com'
+      }
+    }
 
-const options = {
-  method: 'GET',
-  url: 'https://alpha-vantage.p.rapidapi.com/query',
-  params: {
-    from_currency: 'BTC', function: 'CURRENCY_EXCHANGE_RATE', to_currency: chosenSecondaryCurrency
-  },
-  headers: {
-    'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
-    'X-RapidAPI-Host': 'alpha-vantage.p.rapidapi.com'
-  }
-};
-
-axios.request(options).then((response) => {
-	console.log(response.data);
-}).catch((error) => {
-	console.error(error);
-});
+    axios.request(options).then((response) => {
+      console.log(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'])
+      setExchangeRate(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'])
+     SetResult(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate']*amount)
+    }).catch((error) => {
+      console.error(error);
+    })
   }
 
   return (
@@ -68,9 +70,9 @@ axios.request(options).then((response) => {
               <td>Secondary Currency:</td>
               <td>
                 <input
-                  type={'number'}
                   name='currency-amount-2'
-                  value={""}
+                  value={result}
+                  disabled={true}
                 />
               </td>
               <td>
@@ -89,11 +91,14 @@ axios.request(options).then((response) => {
           </tbody>
         </table>
 
-        <button id='convert-btn' onClick={convert}>
-          Convert
-        </button>
+        <button id='convert-btn' onClick={convert}>Convert</button>
+
       </div>
-      <ExchangeRate />
+      <ExchangeRate 
+      exchangeRate={exchangeRate}
+      chosenPrimaryCurrency={chosenPrimaryCurrency}
+      chosenSecondaryCurrency={chosenSecondaryCurrency}
+      />
     </div>
   )
 }
