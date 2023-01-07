@@ -2,6 +2,7 @@
 <html>
   <body>
     <h1>Crypto Dash</h1>
+    <img src="https://www.bankrate.com/2022/07/07151503/Cryptocurrency-statistics.jpeg?auto=webp&optimize=high&crop=16:9" alt="Cryptocurrency statistics" width="500" height="281" />
     <img src="https://example.com/crypto-dash-logo.jpg" alt="Crypto Dash logo" width="200" height="200" />
     <h2>Description</h2>
     <p>Welcome to Crypto Dash, a web-based application that is an interactive crypto-currency dashboard. Keep track of the latest exchange rates, convert between different currencies, and stay up-to-date with the latest crypto news all in one place. Test your knowledge and see how well you can navigate the exciting world of crypto-currencies.</p>
